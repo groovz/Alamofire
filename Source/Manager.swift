@@ -123,7 +123,9 @@ public class Manager {
         serverTrustPolicyManager: ServerTrustPolicyManager? = nil)
     {
         self.delegate = delegate
-        self.session = NSURLSession(configuration: configuration, delegate: delegate, delegateQueue: nil)
+        let delegateQueue = NSOperationQueue()
+        delegateQueue.maxConcurrentOperationCount = 20
+        self.session = NSURLSession(configuration: configuration, delegate: delegate, delegateQueue: delegateQueue)
 
         commonInit(serverTrustPolicyManager: serverTrustPolicyManager)
     }
